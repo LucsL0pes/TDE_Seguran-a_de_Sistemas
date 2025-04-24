@@ -39,7 +39,7 @@ def descriptografar_em_ctr(chave_hex, texto_cifrado_hex):
 # Função para criptografar uma mensagem com AES no modo CTR
 def criptografar_em_ctr(chave_hex, texto_claro):
     chave = binascii.unhexlify(chave_hex)
-    nonce = os.urandom(8)  # Gerar nonce aleatório
+    nonce = os.urandom(16)  # Gerar nonce aleatório
     contador = Counter.new(128, initial_value=int.from_bytes(nonce, byteorder='big'))
     cifra = AES.new(chave, AES.MODE_CTR, counter=contador)
     texto_criptografado = cifra.encrypt(texto_claro.encode('utf-8'))
@@ -75,4 +75,5 @@ print(f"Texto decifrado da Tarefa 4: {texto_decifrado_tarefa_4}")
 texto_claro = "Lucas Figueira Lopes"
 nome_criptografado = criptografar_em_ctr(chave_ctr, texto_claro)
 print(f"Nome criptografado: {nome_criptografado}")
-
+texto_decifrado_tarefa = descriptografar_em_ctr(chave_ctr, nome_criptografado)
+print(f"Nome Decifrado: {texto_decifrado_tarefa}")
